@@ -164,14 +164,43 @@ int* fillVector(int* v){
 }
 
 int* initializeMatrix(void){
-  int* m = (int*) malloc(sizeof(int) * MATRIXSIDE);
+  int i, j = MATRIXSIDE;
+  
+  int* m = (int*) malloc(i * j * sizeof(int));
 
-  for(i = 0; i < MATRIXSIDE; i++){
-
-    m[i]
-
-  }
   return m;
+}
+
+int* fillMatrix(int* m){
+  for(int i = 0; i < MATRIXSIDE; i++){
+    for(int j = 0; j < MATRIXSIDE; j++){
+      m[i * MATRIXSIDE + j] = i * MATRIXSIDE + j;
+    }
+  }
+  
+  return m;
+}
+
+int* matrixMultiplication(int* m1, int* m2){
+  int* result = initializeMatrix();
+  
+  for(int i = 0; i < MATRIXSIDE; i++){
+    for(int j = 0; j < MATRIXSIDE; j++){
+      result[i * MATRIXSIDE + j] = dotProduct(m1, m2, i, j);
+    }
+  }
+
+  return result;
+}
+
+int dotProduct(int* m1, int* m2, int row, int column){
+  int result = 0;
+
+  for(int k = 0; k < MATRIXSIDE; k++){
+    result += m1[row * MATRIXSIDE + k] * m2[k * MATRIXSIDE + column];
+  }
+
+  return result;
 }
 
 int main(){
