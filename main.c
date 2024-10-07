@@ -181,6 +181,16 @@ int* fillMatrix(int* m){
   return m;
 }
 
+int dotProduct(int* m1, int* m2, int row, int column){
+  int result = 0;
+
+  for(int k = 0; k < MATRIXSIDE; k++){
+    result += m1[row * MATRIXSIDE + k] * m2[k * MATRIXSIDE + column];
+  }
+
+  return result;
+}
+
 int* matrixMultiplication(int* m1, int* m2){
   int* result = initializeMatrix();
   
@@ -193,15 +203,7 @@ int* matrixMultiplication(int* m1, int* m2){
   return result;
 }
 
-int dotProduct(int* m1, int* m2, int row, int column){
-  int result = 0;
 
-  for(int k = 0; k < MATRIXSIDE; k++){
-    result += m1[row * MATRIXSIDE + k] * m2[k * MATRIXSIDE + column];
-  }
-
-  return result;
-}
 
 int main(){
   srand(time(NULL));
