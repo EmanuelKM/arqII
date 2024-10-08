@@ -3,9 +3,9 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define OVERFLOW 10000000
+#define OVERFLOW 9273345
 #define SEARCHES 1
-#define MATRIXSIDE 3163
+#define MATRIXSIDE 3046
 
 typedef struct list{
   int key;
@@ -13,7 +13,7 @@ typedef struct list{
 }LIST;
 
 int randomNum(void){
-  return rand() % 101;
+  return rand() % 1001;
 }
 
 LIST* append(LIST* l, int value){ 
@@ -95,30 +95,24 @@ void swap(int* a, int* b) {
 }
 
 int median(int* vector, int start, int end){
-
   int firstIndex = start;
-  int middleIndex = (start + end)/2;
+  int middleIndex = (start + end) / 2;
   int lastIndex = end;
 
-  if((vector[firstIndex] >= vector[middleIndex]) ^ (vector[firstIndex] >= vector[lastIndex])){
+  if ((vector[firstIndex] >= vector[middleIndex]) != (vector[firstIndex] >= vector[lastIndex])) {
     return firstIndex;
-  }
-
-  else if((vector[middleIndex] >= vector[firstIndex]) ^ (vector[middleIndex] >= vector[lastIndex])){
+  } else if ((vector[middleIndex] >= vector[firstIndex]) != (vector[middleIndex] >= vector[lastIndex])) {
     return middleIndex;
-  }
-
-  else{
+  } else {
     return lastIndex;
   }
 }
 
 int lomuto(int *vector, int start, int end){
-
   int pivot = vector[start];
-  int swapPosition = start-1;
+  int swapPosition = start;
 
-  for(int i = start; i <= end; i++){
+  for(int i = start + 1; i <= end; i++){
     if(vector[i] <= pivot){
       swapPosition++;
       swap(&vector[i], &vector[swapPosition]);
@@ -131,8 +125,7 @@ int lomuto(int *vector, int start, int end){
 }
 
 void quicksort(int *vector, int start, int end){
-
-  if(end > start){
+  if(start < end){
     int pivotIndex = median(vector, start, end);
     swap(&vector[start], &vector[pivotIndex]);
 
@@ -208,9 +201,9 @@ int main(){
 
   int* myVector = NULL;
   //LIST* myList = NULL;
-  int* matrixOne = NULL;
-  int* matrixTwo = NULL;
-  int* result = NULL;
+  //int* matrixOne = NULL;
+  //int* matrixTwo = NULL;
+  //int* result = NULL;
   
   myVector = initializeVector();
   myVector = fillVector(myVector);
@@ -219,13 +212,13 @@ int main(){
   //myList = fillList(myList);
   //int test = makeRandomSearch(myList);
   
-  matrixOne = initializeMatrix();
-  matrixOne = fillMatrix(matrixOne);
+  //matrixOne = initializeMatrix();
+  //matrixOne = fillMatrix(matrixOne);
 
-  matrixTwo = initializeMatrix();
-  matrixTwo = fillMatrix(matrixTwo);
+  //matrixTwo = initializeMatrix();
+  //matrixTwo = fillMatrix(matrixTwo);
 
-  result = matrixMultiplication(matrixOne, matrixTwo);
+  //result = matrixMultiplication(matrixOne, matrixTwo);
 
   return 0;
 }
