@@ -3,8 +3,8 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define OVERFLOW 20
-#define SEARCHES 20
+#define OVERFLOW 10000000
+#define SEARCHES 1
 #define MATRIXSIDE 3163
 
 typedef struct list{
@@ -203,22 +203,29 @@ int* matrixMultiplication(int* m1, int* m2){
   return result;
 }
 
-
-
 int main(){
   srand(time(NULL));
 
-  //int* myVector = NULL;
+  int* myVector = NULL;
   //LIST* myList = NULL;
-  //int *myMatrix = NULL;
+  int* matrixOne = NULL;
+  int* matrixTwo = NULL;
+  int* result = NULL;
   
-  //myVector = initializeVector();
-  //myVector = fillVector(myVector);
-  //quicksort(myVector,0,OVERFLOW-1);
+  myVector = initializeVector();
+  myVector = fillVector(myVector);
+  quicksort(myVector,0,OVERFLOW-1);
 
   //myList = fillList(myList);
   //int test = makeRandomSearch(myList);
-  //printf("hits: %d\n", test);
+  
+  matrixOne = initializeMatrix();
+  matrixOne = fillMatrix(matrixOne);
+
+  matrixTwo = initializeMatrix();
+  matrixTwo = fillMatrix(matrixTwo);
+
+  result = matrixMultiplication(matrixOne, matrixTwo);
 
   return 0;
 }
