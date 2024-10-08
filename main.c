@@ -3,7 +3,8 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define OVERFLOW 9273345
+#define OF_VECTOR 9273350
+#define OF_LIST 2318336
 #define SEARCHES 1
 #define MATRIXSIDE 3046
 
@@ -61,25 +62,10 @@ int search(LIST* l, int value){
   return false;
 }
 
-int makeRandomSearch(LIST* l){
-  int n = -1, hits = 0;
-
-  for(int i = 0; i < SEARCHES; i++){
-    n = randomNum();
-
-    if(search(l, n)){
-      hits++;
-    }
-  }
-
-  return hits;
-}
-
 LIST* fillList(LIST* l){
-  int n = -1;
+  int n = 10;
 
-  for(int i = 0; i < OVERFLOW; i++){
-    n = randomNum();
+  for(int i = 0; i < OF_LIST; i++){
     l = append(l, n);
   }
 
@@ -137,19 +123,19 @@ void quicksort(int *vector, int start, int end){
 }
 
 int *initializeVector(void){
-  int* v = (int*) malloc(sizeof(int) * OVERFLOW);
+  int* v = (int*) malloc(sizeof(int) * OF_VECTOR);
 
   return v;
 }
 
 void printVector(int *vector){
-  for(int i = 0; i < OVERFLOW; i++){
+  for(int i = 0; i < OF_VECTOR; i++){
     printf("%d\n", vector[i]);
   }
 }
 
 int* fillVector(int* v){
-  for(int i = 0; i < OVERFLOW; i++){
+  for(int i = 0; i < OF_VECTOR; i++){
     v[i] = randomNum();
   }
   
@@ -184,9 +170,7 @@ int dotProduct(int* m1, int* m2, int row, int column){
   return result;
 }
 
-int* matrixMultiplication(int* m1, int* m2){
-  int* result = initializeMatrix();
-  
+int* matrixMultiplication(int* m1, int* m2, int* result){
   for(int i = 0; i < MATRIXSIDE; i++){
     for(int j = 0; j < MATRIXSIDE; j++){
       result[i * MATRIXSIDE + j] = dotProduct(m1, m2, i, j);
@@ -199,26 +183,24 @@ int* matrixMultiplication(int* m1, int* m2){
 int main(){
   srand(time(NULL));
 
-  int* myVector = NULL;
-  //LIST* myList = NULL;
-  //int* matrixOne = NULL;
-  //int* matrixTwo = NULL;
-  //int* result = NULL;
+  // int* myVector = NULL;
+  // LIST* myList = NULL;
+  int* matrixOne = NULL;
+  int* matrixTwo = NULL;
+  int* result = NULL;
   
-  myVector = initializeVector();
-  myVector = fillVector(myVector);
-  quicksort(myVector,0,OVERFLOW-1);
+  // myVector = initializeVector();
+  // myVector = fillVector(myVector);
+  // quicksort(myVector,0,OF_VECTOR-1);
 
-  //myList = fillList(myList);
-  //int test = makeRandomSearch(myList);
+  // myList = fillList(myList);
   
-  //matrixOne = initializeMatrix();
-  //matrixOne = fillMatrix(matrixOne);
-
-  //matrixTwo = initializeMatrix();
-  //matrixTwo = fillMatrix(matrixTwo);
-
-  //result = matrixMultiplication(matrixOne, matrixTwo);
+  matrixOne = initializeMatrix();
+  matrixOne = fillMatrix(matrixOne);
+  matrixTwo = initializeMatrix();
+  matrixTwo = fillMatrix(matrixTwo);
+  result = initializeMatrix();
+  result = matrixMultiplication(matrixOne, matrixTwo, result);
 
   return 0;
 }
