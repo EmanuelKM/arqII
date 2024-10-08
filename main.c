@@ -6,7 +6,7 @@
 #define OF_VECTOR 9273350
 #define OF_LIST 2318336
 #define SEARCHES 1
-#define MATRIXSIDE 3046
+#define MATRIXSIDE 3050
 
 typedef struct list{
   int key;
@@ -143,7 +143,8 @@ int* fillVector(int* v){
 }
 
 int* initializeMatrix(void){
-  int i, j = MATRIXSIDE;
+  int i = MATRIXSIDE;
+  int j = MATRIXSIDE;
   
   int* m = (int*) malloc(i * j * sizeof(int));
 
@@ -153,7 +154,7 @@ int* initializeMatrix(void){
 int* fillMatrix(int* m){
   for(int i = 0; i < MATRIXSIDE; i++){
     for(int j = 0; j < MATRIXSIDE; j++){
-      m[i * MATRIXSIDE + j] = i * MATRIXSIDE + j;
+      m[i * MATRIXSIDE + j] = 1;
     }
   }
   
@@ -180,6 +181,16 @@ int* matrixMultiplication(int* m1, int* m2, int* result){
   return result;
 }
 
+void showMatrix(int* m){
+  for(int i = 0; i < MATRIXSIDE; i++){
+    for(int j = 0; j < MATRIXSIDE; j++){
+      printf("%d\t", m[i * MATRIXSIDE + j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
 int main(){
   srand(time(NULL));
 
@@ -194,11 +205,12 @@ int main(){
   // quicksort(myVector,0,OF_VECTOR-1);
 
   // myList = fillList(myList);
-  
+
   matrixOne = initializeMatrix();
   matrixOne = fillMatrix(matrixOne);
   matrixTwo = initializeMatrix();
   matrixTwo = fillMatrix(matrixTwo);
+
   result = initializeMatrix();
   result = matrixMultiplication(matrixOne, matrixTwo, result);
 
