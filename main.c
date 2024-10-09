@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #define OF_VECTOR 9273350
-#define OF_LIST 2318336
+#define OF_LIST 2318340
 #define SEARCHES 1
 #define MATRIXSIDE 3050
 
@@ -14,42 +14,41 @@ typedef struct list{
 }LIST;
 
 int randomNum(void){
-  return rand() % 1001;
+  return rand() % 501;
 }
 
-LIST* append(LIST* l, int value){ 
-  LIST* novo = (LIST*) malloc(sizeof(LIST));
-  novo->key = value;
-  novo->next = NULL;
+//cria uma lista e adiciona n = OF_LIST numeros aleatorios nela
+LIST* createList(void){
+    LIST* novo = malloc(sizeof(LIST));
+    novo->key = randomNum();
+    novo->next = NULL;
 
-  if(l == NULL){
-    return novo;
-  }
-
-  else{
-    LIST *ptAux = l;
-
-    while(ptAux->next != NULL){
-      ptAux = ptAux->next;
-    }
+    LIST* fstEl = novo;
+    LIST* ptAux = novo;
+  for(int i = 0; i < OF_LIST; i++){
+    LIST* novo = malloc(sizeof(LIST));
+    novo->key = randomNum();
+    novo->next = NULL;
 
     ptAux->next = novo;
-
-    return l;
+    ptAux = novo; 
   }
+
+  return fstEl;
 }
 
 void showList(LIST* l){
   LIST *ptAux = l;
 
   while(ptAux != NULL){
-    printf("%d\n", ptAux->key);
+    printf("%d ", ptAux->key);
 
     ptAux = ptAux->next;
   }
+  printf("\n");
 }
 
-int search(LIST* l, int value){
+bool search(LIST* l, int value){
   LIST* ptAux = l;
 
   while(ptAux != NULL){
@@ -60,16 +59,6 @@ int search(LIST* l, int value){
   }
 
   return false;
-}
-
-LIST* fillList(LIST* l){
-  int n = 10;
-
-  for(int i = 0; i < OF_LIST; i++){
-    l = append(l, n);
-  }
-
-  return l;
 }
 
 void swap(int* a, int* b) {
@@ -195,24 +184,31 @@ int main(){
   srand(time(NULL));
 
   // int* myVector = NULL;
-  // LIST* myList = NULL;
-  int* matrixOne = NULL;
-  int* matrixTwo = NULL;
-  int* result = NULL;
+  LIST* myList = NULL;
+  // int* matrixOne = NULL;
+  // int* matrixTwo = NULL;
+  // int* result = NULL;
   
   // myVector = initializeVector();
   // myVector = fillVector(myVector);
   // quicksort(myVector,0,OF_VECTOR-1);
 
-  // myList = fillList(myList);
+  myList = createList();
+  bool test = search(myList, 50);
+  if(test){
+    printf("achou\n");
+  } else {
+    printf("nao achou\n");
+  }
 
-  matrixOne = initializeMatrix();
-  matrixOne = fillMatrix(matrixOne);
-  matrixTwo = initializeMatrix();
-  matrixTwo = fillMatrix(matrixTwo);
 
-  result = initializeMatrix();
-  result = matrixMultiplication(matrixOne, matrixTwo, result);
+  // matrixOne = initializeMatrix();
+  // matrixOne = fillMatrix(matrixOne);
+  // matrixTwo = initializeMatrix();
+  // matrixTwo = fillMatrix(matrixTwo);
+
+  // result = initializeMatrix();
+  // result = matrixMultiplication(matrixOne, matrixTwo, result);
 
   return 0;
 }
